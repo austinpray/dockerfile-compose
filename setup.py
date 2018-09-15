@@ -12,7 +12,7 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'dockerfile_compose'
+NAME = 'dockerfile-compose'
 DESCRIPTION = 'Utils for making dockerfiles from other dockerfiles'
 URL = 'https://github.com/austinpray/dockerfile-compose'
 EMAIL = 'austin@austinpray.com'
@@ -48,7 +48,7 @@ except FileNotFoundError:
 # Load the package's __version__.py module as a dictionary.
 about = {}
 if not VERSION:
-    with open(os.path.join(here, NAME, '__version__.py')) as f:
+    with open(os.path.join(here, 'dockerfile_compose/__version__.py')) as f:
         exec(f.read(), about)
 else:
     about['__version__'] = VERSION
