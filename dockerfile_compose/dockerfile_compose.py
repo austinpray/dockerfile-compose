@@ -3,10 +3,9 @@ from os.path import abspath, dirname, join, relpath, basename
 from typing import TextIO
 
 
-def include_dockerfile(dockerfile_path: str, out: TextIO):
-    with open(abspath(dockerfile_path)) as df:
+def include_dockerfile(dockerfile: TextIO, out: TextIO):
         content_start = False
-        for line in df:
+        for line in dockerfile:
             # strip directives we don't like
             if line.lower().startswith(('#', 'from', 'cmd')):
                 continue
@@ -49,7 +48,8 @@ def build_dockerfile(template_file: TextIO, out_file: TextIO = None):
                 include_file_rel = include_file_arg
             out(line.replace(include_file_arg, include_file_rel).strip())
 
-            include_dockerfile(include_file, out_dest)
+            with open(abspath(include_file)) as df:
+                include_dockerfile(df, out_dest)
             out(f'# @endinclude {include_file_rel}')
 
             continue
